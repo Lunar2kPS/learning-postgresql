@@ -1,0 +1,19 @@
+services:
+  database:
+    container_name: postgresql_database
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+    ports:
+      - "5432:5432"
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: carlos@2kpixelstudios.net
+      PGADMIN_DEFAULT_PASSWORD: root
+    ports:
+      - "5050:80" # NOTE: This goes "OUTER:INNER", so we will connect to port 5050 on our local machine (from outside the Docker container).
