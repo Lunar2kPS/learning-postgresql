@@ -1,6 +1,6 @@
 services:
   database:
-    container_name: postgresql_database
+    container_name: postgresql-database
     image: postgres
     restart: always
     environment:
@@ -8,6 +8,8 @@ services:
       POSTGRES_PASSWORD: root
     ports:
       - "5432:5432"
+    volumes:
+      - ./sql:/sql # NOTE: This is a bind mount. See README.md for notes.
   pgadmin:
     container_name: pgadmin
     image: dpage/pgadmin4
