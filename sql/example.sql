@@ -12,3 +12,7 @@ INSERT INTO players (username, level)
         ('Charlie', 7);
 
 SELECT * FROM players;
+
+-- INSERT INTO players (username, level)
+--     VALUES
+--         ('Temp User', NULL);
