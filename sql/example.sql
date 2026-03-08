@@ -16,3 +16,5 @@ SELECT * FROM players;
 -- INSERT INTO players (username, level)
 --     VALUES
 --         ('Temp User', NULL);
+
+-- DELETE FROM players WHERE username = 'CSharp Test Player';

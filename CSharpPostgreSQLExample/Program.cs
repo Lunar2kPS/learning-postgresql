@@ -11,6 +11,17 @@ namespace CSharpPostgreSQLExample {
             await using NpgsqlConnection connection = new(connectionString); //NOTE: `await using` here because NpgsqlConnection is IAsyncDisposable instead of just regular IDisposable.
             await connection.OpenAsync();
 
+            await using (NpgsqlCommand command = new(
+@"INSERT INTO players (username, level)
+VALUES (@username, @level)
+ON CONFLICT (username)
+DO UPDATE SET level = EXCLUDED.level + 1;", connection)) {
+                command.Parameters.AddWithValue("username", "CSharp Test Player");
+                command.Parameters.AddWithValue("level", 4);
+                int rowsAffected = await command.ExecuteNonQueryAsync();
+                Console.WriteLine(rowsAffected + " row(s) affected from the UP/SERT.");
+            }
+
             await using (NpgsqlCommand cmd = new("SELECT * FROM players;", connection))
             await using (NpgsqlDataReader reader = await cmd.ExecuteReaderAsync()) {
                 for (int i = 0; i < reader.FieldCount; i++)
